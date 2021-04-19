@@ -200,6 +200,11 @@ module Overcommit
 
       @hooks += HookLoader::BuiltInHookLoader.new(@config, @context, @log).load_hooks
 
+      # Load Gem-based hooks next, if gem_plugins is enabled:
+      if @config['gem_plugins']
+        @hooks += HookLoader::GemHookLoader.new(@config, @context, @log).load_hooks
+      end
+
       # Load plugin hooks after so they can subclass existing hooks
       @hooks += HookLoader::PluginHookLoader.new(@config, @context, @log).load_hooks
     rescue LoadError => ex

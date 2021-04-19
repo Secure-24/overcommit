@@ -40,6 +40,7 @@ any Ruby code.
   * [PrePush](#prepush)
   * [PreRebase](#prerebase)
 * [Repo-Specific Hooks](#repo-specific-hooks)
+* [Gem-provided Hooks](#gem-provided-hooks)
   * [Adding Existing Git Hooks](#adding-existing-git-hooks)
 * [Security](#security)
 * [Contributing](#contributing)
@@ -644,6 +645,24 @@ PreCommit:
     description: 'Checking for missing inclusion of spec_helper'
     include: '**/*_spec.rb'
 ```
+
+## Gem-provided Hooks
+
+For hooks which should be available from multiple repositories, but which do not
+make sense to contribute back to Overcommit, you can package them as a Ruby Gem
+and `overcommit` can use them as if they were repo-specific hooks. This would be
+useful for an organization that has custom hooks they wish to apply to many
+repositories, but manage the hooks in a central way.
+
+These are implemented similarly to Repo-Specific Hooks, but need to be placed
+in a Gem in the normal `overcommit` hook path. For example, to add `MyCustomHook`
+as a pre_commit hook you would put it here:
+`./lib/overcommit/hooks/pre_commit/my_custom_hook.rb`
+
+You must ensure that the Gem is available in the environment where `overcommit` is
+being run.
+
+See [Repo-Specific Hooks](#repo-specific-hooks) for details.
 
 ### Adding Existing Git Hooks
 
