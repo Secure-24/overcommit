@@ -34,6 +34,11 @@
 # (Generate lock file by running `bundle install --gemfile=.overcommit_gems.rb`)
 gemfile: false
 
+# If enabled, Overcommit will look for plugins provided anywhere in the
+# standard load path and load them as it would with built-in or repo-specific
+# hooks.
+gem_plugins: true
+
 # Where to store hook plugins specific to a repository. These are loaded in
 # addition to the default hooks Overcommit comes with. The location is relative
 # to the root of the repository.
